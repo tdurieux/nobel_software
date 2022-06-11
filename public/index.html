@@ -1,0 +1,134 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en" ng-app="nobel-software" ng-controller="mainController">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title ng-bind="title">Nobel Software</title>
+
+    <base href="/" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="/css/color-schema.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/notebook.css" />
+    <link rel="stylesheet" href="/css/prism.css" />
+    <link rel="stylesheet" href="/css/katex.min.css" />
+    <link rel="stylesheet" href="/css/github-markdown.min.css" />
+
+    <!-- JS -->
+    <script src="/script/external/angular.min.js"></script>
+    <script src="/script/external/angular-translate.min.js"></script>
+    <script src="/script/external/angular-translate-loader-static-files.min.js"></script>
+    <script src="/script/external/angular-sanitize.min.js"></script>
+    <script src="/script/external/angular-route.min.js"></script>
+    <script src="/script/external/ana.min.js"></script>
+
+    <script src="/script/external/jquery-3.4.1.min.js"></script>
+    <script src="/script/external/popper.min.js"></script>
+    <script src="/script/external/bootstrap.min.js"></script>
+
+    <script src="/script/external/pdf.compat.js"></script>
+    <script src="/script/external/pdf.js"></script>
+
+    <script src="/script/ng-pdfviewer.min.js"></script>
+    <script src="/script/app.js"></script>
+  </head>
+  <body keypress-events class="d-flex flex-column">
+    <ng-include src="'partials/header.htm'"></ng-include>
+    <div class="align-items-stretch h-100 w-100 overflow-auto">
+      <div class="container-fluid h-100">
+        <div class="row h-100">
+          <div class="leftCol sidePanel shadow p-1 overflow-auto">
+            <h3>Filters</h3>
+            <div class="form-group">
+              <input
+                type="search"
+                class="form-control"
+                id="search"
+                placeholder="Search..."
+                ng-model="search"
+              />
+            </div>
+            <h2>Matched</h2>
+            <ul>
+              <li class="filter">
+                <label for="matched" ng-class="{'actived':filters.matched}">
+                  <input
+                    type="checkbox"
+                    id="matched"
+                    ng-model="filters.matched"
+                  />
+                  Nobel matched with Microsoft Academia
+                </label>
+              </li>
+            </ul>
+            <h2>Categories</h2>
+            <ul>
+              <li class="filter" ng-repeat="(vKey,value) in filters.categories">
+                <label for="{{ vKey }}" ng-class="{'actived':value}">
+                  <input
+                    type="checkbox"
+                    id="{{ vKey }}"
+                    ng-model="filters.categories[vKey]"
+                  />
+                  {{vKey}}
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md h-100 body">
+            <div class="p-0 row h-100">
+              <div class="p-0 col col-3 p-0 h-100">
+                <div class="container-fluid h-100 d-flex flex-column">
+                  <div class="">{{filteredLaureate.length}} Laureates</div>
+                  <div class="h-100 w-100 overflow-auto">
+                    <div class="list-group">
+                      <a
+                        class="list-group-item list-group-item-action"
+                        ng-repeat="laureate in laureates | filter:laureateFilter| orderBy:orderBy as filteredLaureate"
+                        ng-click="selectLaureate(laureate)"
+                      >
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">
+                            {{laureate.firstname}} {{laureate.surname}}
+                          </h5>
+                          <small>{{laureate.id}}</small>
+                        </div>
+                        <div class="image-parent" ng-if="laureate.image">
+                          <img
+                            ng-src="{{laureate.image}}"
+                            class="img-fluid"
+                            alt="quixote"
+                          />
+                        </div>
+                        <p class="mb-1" ng-repeat="prize in laureate.prizes">
+                          {{prize.category | title}} {{prize.year}}
+                          {{prize.affiliations[0].name}}
+                        </p>
+                        <small ng-bind="laureate.description"></small>
+                      </a>
+                      <a
+                        class="list-group-item"
+                        ng-hide="filteredLaureate.length"
+                      >
+                        No Laureates
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-view class="col p-0 h-100"></ng-view>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

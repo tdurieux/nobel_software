@@ -1,0 +1,46 @@
+<div class="container-fluid h-100 d-flex flex-column">
+  <div class="">
+    <form ng-submit="look()">
+      <input
+        type="search"
+        class="form-control"
+        id="search"
+        placeholder="Search..."
+        ng-model="search"
+        
+      />
+    </form>
+  </div>
+  <div class="h-100 w-100 overflow-auto">
+    <div class="list-group">
+      <a
+        class="list-group-item list-group-item-action"
+        ng-repeat="author in authors"
+        ng-click="selectAuthor(author)"
+      >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">
+            {{author.an}} from {{author.ci.dn}}
+          </h5>
+          <small>{{author.id}}</small>
+        </div>
+        <div class="image-parent" ng-if="author.iurl">
+          <img
+            ng-src="{{author.iurl}}"
+            class="img-fluid"
+            alt="quixote"
+          />
+        </div>
+        <p class="mb-1">Citations:
+          {{author.ccnt}} Publications: {{author.pc}}</p>
+        <small ng-bind="author.d"></small>
+      </a>
+      <a
+        class="list-group-item"
+        ng-hide="authors.length"
+      >
+        No author found
+      </a>
+    </div>
+  </div>
+</div>

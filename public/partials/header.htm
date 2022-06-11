@@ -1,0 +1,55 @@
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-dark"
+  ng-class="{'shadow': !generalMessage}"
+>
+  <a class="navbar-brand" href="/">Nobel Software</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto smooth-scroll">
+      <li class="nav-item" ng-if="!user">
+        <a class="nav-link" ng-class="{'active': path == '/'}" href="/">
+          Home
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a
+          class="nav-link nav-icon"
+          target="_blank"
+          href="https://github.com/tdurieux/anonymous_github/"
+          data-offset="30"
+          ><i class="fa fa-github" aria-hidden="true"></i
+        ></a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          target="_blank"
+          href="https://github.com/tdurieux/anonymous_github/issues/new"
+          data-offset="30"
+          >Report an issue
+        </a>
+      </li>
+
+      <li class="nav-item" ng-if="!isDarkMode">
+        <a class="nav-link" href="#" ng-click="darkMode(true);">Dark Mode</a>
+      </li>
+
+      <li class="nav-item" ng-if="isDarkMode">
+        <a class="nav-link" href="#" ng-click="darkMode(false);">Light Mode</a>
+      </li>
+    </ul>
+  </div>
+</nav>
